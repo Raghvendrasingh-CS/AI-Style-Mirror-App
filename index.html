@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  ============================================================
+  MYNTRA AI STYLE MIRROR — index.html  (Enhanced v2 - Serverless)
+  ============================================================
+-->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Myntra AI Style Mirror | Virtual Try-On & Fit Assistant</title>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- App Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <!-- ── TOP HEADER ── -->
+    <header class="app-header">
+      <a href="#" class="brand-title" onclick="navigateTo('home')">
+        MYNTRA <span class="brand-subtitle">AI MIRROR</span>
+      </a>
+      <div class="header-icons">
+        <button class="header-icon-btn" onclick="navigateTo('search')" title="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <button class="header-icon-btn" onclick="navigateTo('saved')" title="Wishlist">
+          <i class="fa-solid fa-heart"></i>
+          <span class="badge" id="wishlist-badge">3</span>
+        </button>
+        <button class="header-icon-btn" onclick="navigateTo('checkout')" title="Bag">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="badge" id="bag-badge">0</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ── SCROLLABLE SCREEN AREA ── -->
+    <main class="app-content" id="app-content">
+
+
+      <!-- ══════════════════════════════════════
+         SCREEN 0 — LOGIN
+      ══════════════════════════════════════ -->
+      <section id="screen-login" class="screen active">
+        <div class="login-logo-area">
+          <div class="login-logo-ring">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+          <h2 class="login-app-title">MYNTRA AI</h2>
+          <p class="login-app-subtitle">STYLE MIRROR &amp; FIT PLATFORM</p>
+        </div>
+
+        <div class="card-custom glass-login-card">
+          <!-- Tab switcher -->
+          <div class="login-tabs">
+            <button class="login-tab-btn active" id="tab-email" onclick="switchLoginTab('email')">
+              <i class="fa-solid fa-envelope"></i> Email ID
+            </button>
+            <button class="login-tab-btn" id="tab-mobile" onclick="switchLoginTab('mobile')">
+              <i class="fa-solid fa-mobile-screen-button"></i> Mobile
+            </button>
+          </div>
+
+          <!-- Email form -->
+          <div id="form-email">
+            <p class="login-channel-hint"><i class="fa-solid fa-envelope"></i> OTP will be sent to your email inbox</p>
+            <div class="login-field">
+              <label class="login-label">Full Name</label>
+              <input type="text" class="measure-input" id="email-name" placeholder="e.g. Aryan Sharma" />
+            </div>
+            <div class="login-field">
+              <label class="login-label">Email Address</label>
+              <input type="email" class="measure-input" id="login-email" placeholder="e.g. aryan@gmail.com" />
+            </div>
+            <div class="login-field">
+              <label class="login-label">Preferred Clothing Size</label>
+              <select class="measure-input" id="email-size">
+                <option value="XS">XS</option>
+                <option value="S" selected>S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+              </select>
+            </div>
+            <div class="login-field">
+              <label class="login-label"><i class="fa-solid fa-location-dot"></i> City / Location</label>
+              <input type="text" class="measure-input" id="email-location" placeholder="e.g. Mumbai" />
+            </div>
+            <div class="login-field">
+              <label class="login-label"><i class="fa-solid fa-truck"></i> Delivery Address</label>
+              <input type="text" class="measure-input" id="email-delivery"
+                placeholder="e.g. 12 MG Road, Mumbai 400001" />
+            </div>
+            <button class="btn-pink" onclick="handleSendOTP()">
+              <i class="fa-solid fa-paper-plane"></i> Send OTP to Email
+            </button>
+          </div>
+
+          <!-- Mobile form -->
+          <div id="form-mobile" style="display:none;">
+            <p class="login-channel-hint"><i class="fa-solid fa-comment-sms"></i> OTP will be sent via SMS to your number</p>
+            <div class="login-field">
+              <label class="login-label">Full Name</label>
+              <input type="text" class="measure-input" id="mobile-name" placeholder="e.g. Aryan Sharma" />
+            </div>
+            <div class="login-field">
+              <label class="login-label">Mobile Number</label>
+              <div class="phone-input-wrapper" id="mobile-wrapper">
+                <span class="phone-prefix">+91</span>
+                <input type="tel" id="login-mobile" placeholder="10-digit number" maxlength="10"
+                  class="phone-number-input" />
+              </div>
+            </div>
+            <div class="login-field">
+              <label class="login-label">Preferred Clothing Size</label>
+              <select class="measure-input" id="mobile-size">
+                <option value="XS">XS</option>
+                <option value="S" selected>S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+              </select>
+            </div>
+            <div class="login-field">
+              <label class="login-label"><i class="fa-solid fa-location-dot"></i> City / Location</label>
+              <input type="text" class="measure-input" id="mobile-location" placeholder="e.g. Delhi" />
+            </div>
+            <div class="login-field">
+              <label class="login-label"><i class="fa-solid fa-truck"></i> Delivery Address</label>
+              <input type="text" class="measure-input" id="mobile-delivery"
+                placeholder="e.g. 45 Connaught Place, Delhi" />
+            </div>
+            <button class="btn-pink" onclick="handleSendOTP()">
+              <i class="fa-solid fa-comment-sms"></i> Send OTP via SMS
+            </button>
+          </div>
+
+          <!-- OTP entry (shared) -->
+          <div id="login-otp-section" class="otp-section" style="display:none;">
+            <div id="otp-channel-label" class="otp-channel-chip"></div>
+            <div class="login-field">
+              <label class="login-label">Enter 6-Digit OTP</label>
+              <input type="text" class="measure-input otp-input" id="login-otp" placeholder="● ● ● ● ● ●"
+                maxlength="6" />
+            </div>
+            <div class="otp-timer-row">
+              <span id="otp-timer-label" class="otp-timer-text">Resend OTP in 30s</span>
+              <button id="btn-resend-otp" disabled onclick="handleSendOTP()" class="otp-resend-btn">Resend Now</button>
+            </div>
+            <button class="btn-pink" onclick="handleVerifyOTP()">
+              <i class="fa-solid fa-shield-halved"></i> Verify &amp; Sign In
+            </button>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════
+         SCREEN 1 — HOME (INTERACTIVE)
+      ══════════════════════════════════════ -->
+      <section id="screen-home" class="screen">
+
+        <!-- Greeting row -->
+        <div class="user-greeting">
+          <div class="user-info">
+            <h2 id="home-greeting-title">Welcome, Aryan! 👋</h2>
+            <p id="home-greeting-sub"><i class="fa-solid fa-location-dot"></i> Mumbai | Size S</p>
+          </div>
+          <!-- Weather-style style score pill -->
+          <div class="style-score-pill" id="style-score-display">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Style Score</span>
+            <strong id="style-score-val">72</strong>
+          </div>
+        </div>
+
+        <!-- AI Banner -->
+        <div class="banner-pink banner-animated" id="banner-tryon-entry">
+          <div>
+            <span>✨ AI Style Mirror — Try Before You Buy</span>
+            <p class="banner-subtext">Upload your photo · Virtual try-on · Perfect fit</p>
+          </div>
+          <div class="banner-icon-stack">
+            <i class="fa-solid fa-shirt banner-float-icon" style="animation-delay:0s;"></i>
+            <i class="fa-solid fa-vest banner-float-icon" style="animation-delay:0.4s;"></i>
+            <i class="fa-solid fa-chevron-right"></i>
+          </div>
+        </div>
+
+        <!-- ── QUICK ACTION GRID (6 cards) ── -->
+        <div class="action-grid-home">
+          <div class="action-card-home" onclick="navigateTo('upload')">
+            <div class="action-icon-ring" style="background:rgba(255,46,126,0.12);">
+              <i class="fa-solid fa-camera" style="color:#FF2E7E;"></i>
+            </div>
+            <span>Try-On</span>
+          </div>
+          <div class="action-card-home" onclick="navigateTo('builder')">
+            <div class="action-icon-ring" style="background:rgba(156,39,176,0.12);">
+              <i class="fa-solid fa-wand-magic-sparkles" style="color:#9c27b0;"></i>
+            </div>
+            <span>Outfit Builder</span>
+          </div>
+          <div class="action-card-home" onclick="navigateTo('translator')">
+            <div class="action-icon-ring" style="background:rgba(0,165,105,0.12);">
+              <i class="fa-solid fa-ruler-horizontal" style="color:#00A569;"></i>
+            </div>
+            <span>Size Finder</span>
+          </div>
+          <div class="action-card-home" onclick="filterAndGo('Jeans')">
+            <div class="action-icon-ring" style="background:rgba(13,71,161,0.12);">
+              <i class="fa-solid fa-jeans" style="color:#0d47a1;"></i>
+            </div>
+            <span>Jeans</span>
+          </div>
+          <div class="action-card-home" onclick="filterAndGo('Shoes')">
+            <div class="action-icon-ring" style="background:rgba(230,81,0,0.12);">
+              <i class="fa-solid fa-shoe-prints" style="color:#e65100;"></i>
+            </div>
+            <span>Shoes</span>
+          </div>
+          <div class="action-card-home" onclick="navigateTo('saved')">
+            <div class="action-icon-ring" style="background:rgba(211,47,47,0.12);">
+              <i class="fa-solid fa-heart" style="color:#d32f2f;"></i>
+            </div>
+            <span>Wishlist</span>
+          </div>
+        </div>
+
+
+        <!-- ── FLASH DEAL TIMER ── -->
+        <div class="flash-deal-card" id="flash-deal-card">
+          <div class="flash-deal-left">
+            <span class="flash-deal-badge">⚡ FLASH DEAL</span>
+            <p class="flash-deal-name" id="flash-deal-name">Roadster Slim Jeans</p>
+            <p class="flash-deal-price" id="flash-deal-price">₹899 <s style="font-size:10px;opacity:0.7;">₹1,999</s></p>
+          </div>
+          <div class="flash-deal-right">
+            <p style="font-size:10px;font-weight:700;color:#fff;opacity:0.8;margin-bottom:4px;">Ends in</p>
+            <div class="countdown-row">
+              <div class="countdown-box"><span id="cd-h">02</span><span>hrs</span></div>
+              <div class="countdown-sep">:</div>
+              <div class="countdown-box"><span id="cd-m">34</span><span>min</span></div>
+              <div class="countdown-sep">:</div>
+              <div class="countdown-box"><span id="cd-s">17</span><span>sec</span></div>
+            </div>
+            <button class="flash-grab-btn" onclick="tryProduct('p20')">Grab Deal</button>
+          </div>
+        </div>
+
+        <!-- ── TRENDING TODAY (horizontal scroll) ── -->
+        <div class="home-section-header">
+          <span class="home-section-title">🔥 Trending Today</span>
+          <button class="home-see-all" onclick="navigateTo('search')">See All →</button>
+        </div>
+        <div class="trending-strip" id="trending-strip-container"></div>
+
+        <!-- ── MOOD PICKER ── -->
+        <div class="home-section-header">
+          <span class="home-section-title">🎭 What's your vibe today?</span>
+        </div>
+        <div class="mood-picker" id="mood-picker">
+          <button class="mood-chip active" data-mood="Casual" onclick="selectMood(this,'Casual')">😎 Casual</button>
+          <button class="mood-chip" data-mood="Office" onclick="selectMood(this,'Office')">💼 Office</button>
+          <button class="mood-chip" data-mood="Festive" onclick="selectMood(this,'Festive')">✨ Festive</button>
+          <button class="mood-chip" data-mood="Party" onclick="selectMood(this,'Party')">🎉 Party</button>
+          <button class="mood-chip" data-mood="Sport" onclick="selectMood(this,'Sport')">🏃 Sport</button>
+        </div>
+        <div class="mood-picks-row" id="mood-picks-row"></div>
+
+        <!-- ── STYLE SCORE CARD ── -->
+        <div class="card-custom style-score-card" id="style-score-card">
+          <div class="score-card-header">
+            <div>
+              <div class="card-title" style="margin-bottom:2px;">⚡ Your Style Score</div>
+              <p style="font-size:11px;color:var(--text-light);">Complete actions to level up</p>
+            </div>
+            <div class="score-circle" id="score-circle-display">72</div>
+          </div>
+          <!-- Progress tasks -->
+          <div class="score-tasks" id="score-tasks-list"></div>
+          <div class="score-progress-track">
+            <div class="score-progress-fill" id="score-progress-bar" style="width:72%;"></div>
+          </div>
+          <p style="font-size:10px;color:var(--text-light);text-align:right;margin-top:4px;" id="score-level-label">
+            Level: Style Starter</p>
+        </div>
+
+        <!-- ── RECENTLY VIEWED ── -->
+        <div class="home-section-header">
+          <span class="home-section-title">👁 Recently Viewed</span>
+          <button class="home-see-all" onclick="navigateTo('search')">See All →</button>
+        </div>
+        <div class="trending-strip" id="recently-viewed-strip"></div>
+
+        <!-- Onboarding tooltip -->
+        <div class="tooltip-onboarding tooltip-home-mirror" id="home-tooltip" style="display:none;">
+          Upload your photo for a virtual try-on! 👆
+        </div>
+
+        <!-- AI engine status -->
+        <div class="card-custom" style="margin-top:8px;">
+          <div class="card-title">
+            <i class="fa-solid fa-shield-halved" style="color:var(--success-green);margin-right:6px;"></i>
+            AI Size Engine — Active
+          </div>
+          <p class="status-text">
+            Body profile optimized for Indian body shapes.
+            Accuracy rating: <strong>98.4%</strong> across 5M+ sessions.
+          </p>
+        </div>
+
+      </section><!-- end screen-home -->
+
+
+      <!-- ══════════════════════════════════════
+         SCREEN 2 — PHOTO UPLOAD
+      ══════════════════════════════════════ -->
+      <section id="screen-upload" class="screen">
+        <h3 class="section-heading">📸 Upload your photo</h3>
+        <p class="section-subtext">Front-facing, well-lit pose gives the best results.</p>
+
+        <div class="upload-area" id="drop-zone">
+          <div class="upload-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+          <div class="upload-title">Drag &amp; drop photo here</div>
+          <div class="upload-subtitle">JPEG, PNG up to 10 MB</div>
+          <div class="upload-buttons">
+            <button class="btn-pink" onclick="triggerPhotoUpload()">
+              <i class="fa-solid fa-image"></i> Gallery
+            </button>
+            <button class="btn-white" onclick="triggerCameraMock()">
+              <i class="fa-solid fa-camera"></i> Take Photo
+            </button>
+          </div>
+          <input type="file" id="file-uploader" style="display:none;" accept="image/*"
+            onchange="handleFileSelect(event)" />
+        </div>
+
+        <div class="poses-showcase">
+          <p class="poses-title">Best pose examples:</p>
+          <div class="poses-grid">
+            <div class="pose-example">
+              <div class="pose-img-placeholder" style="background-image:url('assets/user_model.png');"></div>
+              <span class="pose-label">Front Facing ✅</span>
+            </div>
+            <div class="pose-example">
+              <div class="pose-img-placeholder pose-bad">
+                <i class="fa-solid fa-ban"></i><span>Angled</span>
+              </div>
+              <span class="pose-label">Side Pose ❌</span>
+            </div>
+            <div class="pose-example">
+              <div class="pose-img-placeholder pose-bad">
+                <i class="fa-solid fa-ban"></i><span>Blurry</span>
+              </div>
+              <span class="pose-label">Bad Light ❌</span>
+            </div>
+          </div>
+        </div>
+        <div class="security-badge">
+          <i class="fa-solid fa-lock"></i>
+          <span>🔒 Your photos are private &amp; secured</span>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════
+         SCREEN 3 — BODY ANALYSIS
+      ══════════════════════════════════════ -->
+      <section id="screen-analysis" class="screen">
+        <h3 class="section-heading">✨ Analysis Complete!</h3>
+        <p class="section-subtext">AI trained on Indian body shapes has calculated your metrics.</p>
+
+        <div class="analysis-summary">
+          <div class="analysis-photo-frame" id="analysis-photo" style="background-image:url('assets/user_model.png');">
+          </div>
+          <div class="analysis-headline">
+            <h3 id="analysis-user-name">Aryan's Shape</h3>
+            <p>Calculated from uploaded image</p>
+            <div class="verified-chip"><i class="fa-solid fa-circle-check"></i> Verified Profile</div>
+          </div>
+        </div>
+
+        <div class="analysis-cards-grid">
+          <div class="analysis-card">
+            <span class="analysis-card-title">👤 Body Type</span>
+            <span class="analysis-card-val">Pear Shape</span>
+            <span class="analysis-card-desc">Hips wider than shoulders</span>
+          </div>
+          <div class="analysis-card">
+            <span class="analysis-card-title">📏 Sizes</span>
+            <span class="analysis-card-val">Top M | Bottom L</span>
+            <span class="analysis-card-desc">Balanced proportions</span>
+          </div>
+          <div class="analysis-card">
+            <span class="analysis-card-title">🎨 Best Colors</span>
+            <span class="analysis-card-val">Jewel Tones</span>
+            <span class="analysis-card-desc">Deep reds, emeralds, blues</span>
+          </div>
+          <div class="analysis-card">
+            <span class="analysis-card-title">✨ Style Tips</span>
+            <span class="analysis-card-val">A-Line Cuts</span>
+            <span class="analysis-card-desc">Flatters your hips</span>
+          </div>
+        </div>
+
+        <button class="btn-pink" onclick="navigateTo('search')">
+          <i class="fa-solid fa-magnifying-glass"></i> Shop for Your Shape
+        </button>
+      </section>
+
+
+      <!-- ══════════════════════════════════════
+         SCREEN 4 — PRODUCT SEARCH & BROWSE
+      ══════════════════════════════════════ -->
+      <section id="screen-search" class="screen">
+        <div class="search-row">
+          <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" class="search-input" id="product-search-bar" placeholder="Search Jeans, Shoes, Kurtas…"
+              onkeyup="filterProductsBySearch()" />
+          </div>
+          <button id="smart-fit-toggle" class="btn-white smart-fit-btn" onclick="toggleSmartFit()">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> <span>Smart Fit</span>
+          </button>
+        </div>
+
+        <div class="filter-row" id="category-filter-chips">
+          <button class="filter-chip active" onclick="filterCategory('All',this)">All</button>
+          <button class="filter-chip" onclick="filterCategory('Jeans',this)">👖 Jeans</button>
+          <button class="filter-chip" onclick="filterCategory('Tops',this)">👕 Tops</button>
+          <button class="filter-chip" onclick="filterCategory('Shorts',this)">🩳 Shorts</button>
+          <button class="filter-chip" onclick="filterCategory('Shoes',this)">👟 Shoes</button>
+          <button class="filter-chip" onclick="filterCategory('Kurtas',this)">Kurtas</button>
+          <button class="filter-chip" onclick="filterCategory('Dresses',this)">Dresses</button>
+          <button class="filter-chip" onclick="filterCategory('Western',this)">Western</button>
+          <button class="filter-chip" onclick="filterCategory('Sarees',this)">Sarees</button>
+          <button class="filter-chip" onclick="filterCategory('Bottoms',this)">Bottoms</button>
+        </div>
+
+        <div class="product-grid" id="product-list-container"></div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════
+         SCREEN 5 — VIRTUAL TRY-ON
+      ══════════════════════════════════════ -->
+      <section id="screen-rendering" class="screen">
+        <h3 class="section-heading">✨ Virtual Style Mirror</h3>
+        <p class="section-subtext" id="tryon-product-subtitle">High-fidelity AI drape simulation</p>
+
+        <!-- Category-aware render hint banner -->
+        <div id="tryon-category-hint" class="category-hint-banner" style="display:none;"></div>
+
+        <div class="tryon-hero-container">
+          <!-- Left: user photo -->
+          <div class="tryon-view-panel">
+            <span class="tryon-panel-label">YOUR PROFILE</span>
+            <div class="tryon-image-canvas" id="tryon-user-img" style="background-image:url('assets/user_model.png');">
+            </div>
+            <svg class="body-mesh-grid-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <line x1="20" y1="0" x2="20" y2="100" stroke="#00e5ff" stroke-width="0.25" stroke-dasharray="1,2" />
+              <line x1="40" y1="0" x2="40" y2="100" stroke="#00e5ff" stroke-width="0.25" stroke-dasharray="1,2" />
+              <line x1="50" y1="0" x2="50" y2="100" stroke="#FF2E7E" stroke-width="0.3" stroke-dasharray="2,2" />
+              <line x1="60" y1="0" x2="60" y2="100" stroke="#00e5ff" stroke-width="0.25" stroke-dasharray="1,2" />
+              <line x1="80" y1="0" x2="80" y2="100" stroke="#00e5ff" stroke-width="0.25" stroke-dasharray="1,2" />
+              <line x1="0" y1="20" x2="100" y2="20" stroke="#00e5ff" stroke-width="0.25" stroke-dasharray="1,2" />
+              <line x1="0" y1="40" x2="100" y2="40" stroke="#00e5ff" stroke-width="0.25" stroke-dasharray="1,2" />
+              <line x1="0" y1="60" x2="100" y2="60" stroke="#00e5ff" stroke-width="0.25" stroke-dasharray="1,2" />
+              <line x1="0" y1="80" x2="100" y2="80" stroke="#00e5ff" stroke-width="0.25" stroke-dasharray="1,2" />
+              <path d="M50,12 C44,12 43,15 43,19 C43,23 46,25 50,25 C54,25 57,23 57,19 C57,15 56,12 50,12 Z" fill="none"
+                stroke="#FF2E7E" stroke-width="0.8" />
+              <path d="M43,26 C37,27 35,33 35,42 C35,48 37,64 39,74 C40,79 40,94 45,94
+                     M57,26 C63,27 65,33 65,42 C65,48 63,64 61,74 C60,79 60,94 55,94" fill="none" stroke="#FF2E7E"
+                stroke-width="0.8" />
+              <circle cx="50" cy="19" r="1.5" fill="#FF2E7E" />
+              <circle cx="43" cy="26" r="1.2" fill="#00e5ff" />
+              <circle cx="57" cy="26" r="1.2" fill="#00e5ff" />
+            </svg>
+            <svg class="body-outline-overlay" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path d="M50,10 C46,10 44,14 44,18 C44,22 47,24 50,24 C53,24 56,22 56,18
+                     C56,14 54,10 50,10 Z M42,25 C36,26 34,32 34,42 C34,48 36,65 38,75
+                     C39,80 39,95 44,95 C46,95 47,88 47,80 C47,75 48,70 50,70
+                     C52,70 53,75 53,80 C53,88 54,95 56,95 C61,95 61,80 62,75
+                     C64,65 66,48 66,42 C66,32 64,26 58,25 C55,27 45,27 42,25 Z" fill="none" stroke="#FF2E7E"
+                stroke-width="1.5" stroke-dasharray="3,3" />
+            </svg>
+          </div>
+
+          <!-- Right: AI rendered result -->
+          <div class="tryon-view-panel" id="rendering-result-container">
+            <span class="tryon-panel-label" style="background:var(--primary-pink);">AI RENDER</span>
+            <div class="tryon-scanning-overlay" id="scanning-overlay">
+              <div class="scanning-laser"></div>
+              <div class="scanning-checklist">
+                <div class="scanning-title">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                  <span>AI Render Engine</span>
+                </div>
+                <div class="scanning-step" id="scan-step-1"><i class="fa-solid fa-circle-dot"></i><span>Aligning body
+                    contours...</span></div>
+                <div class="scanning-step" id="scan-step-2"><i class="fa-solid fa-circle-dot"></i><span>Analyzing drape
+                    friction...</span></div>
+                <div class="scanning-step" id="scan-step-3"><i class="fa-solid fa-circle-dot"></i><span>Layering texture
+                    maps...</span></div>
+                <div class="scanning-step" id="scan-step-4"><i class="fa-solid fa-circle-dot"></i><span>Synthesizing
+                    shadows...</span></div>
+              </div>
+            </div>
+            <svg class="body-mesh-grid-svg" viewBox="0 0 100 100" preserveAspectRatio="none"
+              style="opacity:0.1;stroke:#FF2E7E;">
+              <line x1="30" y1="0" x2="30" y2="100" stroke-width="0.2" />
+              <line x1="50" y1="0" x2="50" y2="100" stroke-width="0.2" />
+              <line x1="70" y1="0" x2="70" y2="100" stroke-width="0.2" />
+              <line x1="0" y1="30" x2="100" y2="30" stroke-width="0.2" />
+              <line x1="0" y1="50" x2="100" y2="50" stroke-width="0.2" />
+              <line x1="0" y1="70" x2="100" y2="70" stroke-width="0.2" />
+            </svg>
+            <div class="tryon-image-canvas bounce-in" id="tryon-render-img"
+              style="background-image:url('assets/model_wearing_kurta.png');"></div>
+          </div>
+        </div>
+
+        <!-- Category-specific info chips -->
+        <div class="tryon-category-chips" id="tryon-category-chips"></div>
+
+        <div class="tooltip-onboarding tooltip-tryon-builder" id="tryon-tooltip" style="display:none;">
+          Great! Now try AI Outfit Builder 🎨
+        </div>
+
+        <div class="tryon-controls">
+          <div class="control-group">
+            <span class="control-label">
+              <span id="fit-slider-label-prefix">📐 Adjust Fit Size</span>
+              <span id="fit-label-value" style="color:var(--primary-pink);">Size M (Fits Best)</span>
+            </span>
+            <input type="range" min="1" max="3" value="2" class="slider-fit" id="fit-slider"
+              oninput="handleFitSliderChange(this.value)" />
+            <div class="slider-ticks">
+              <span id="tick-small">S (Tight)</span>
+              <span>M (Perfect)</span>
+              <span id="tick-large">L (Relaxed)</span>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">🎨 See in Colors</span>
+            <div class="color-options" id="rendering-color-options"></div>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">↔️ Rotate View (360°)</span>
+            <div class="rotate-buttons">
+              <button class="rotate-btn active" onclick="changeRotation(0,this)"><i class="fa-solid fa-street-view"></i>
+                Front</button>
+              <button class="rotate-btn" onclick="changeRotation(1,this)"><i class="fa-solid fa-rotate"></i>
+                Side</button>
+              <button class="rotate-btn" onclick="changeRotation(2,this)"><i class="fa-solid fa-arrows-spin"></i>
+                Back</button>
+            </div>
+          </div>
+
+          <div class="control-group" style="margin-bottom:0;">
+            <span class="control-label">📊 Size Advice</span>
+            <p id="rendering-size-advice" class="size-advice-text">
+              <i class="fa-solid fa-circle-check"></i> Size M fits YOU perfectly
+            </p>
+            <div id="why-this-size-container" style="display:none;" class="why-size-box">
+              <div onclick="toggleWhyThisSize()" class="why-size-header">
+                <span>💡 Why this size?</span>
+                <i id="why-size-caret" class="fa-solid fa-chevron-down"></i>
+              </div>
+              <div id="why-size-content" style="display:none;" class="why-size-content"></div>
+            </div>
+          </div>
+
+          <div class="fit-analysis-panel" id="tryon-fit-analysis">
+            <div class="fit-analysis-header">
+              <div class="fit-analysis-title">
+                <i class="fa-solid fa-calculator" style="color:var(--primary-pink);"></i>
+                <span>AI Fit Match</span>
+              </div>
+              <span class="fit-score-badge" id="fit-match-score">98% Match</span>
+            </div>
+            <div class="fit-metric-row">
+              <div class="fit-metric-labels">
+                <span id="metric-label-1">Chest Proportions</span>
+                <span id="fit-chest-status" class="fit-verdict-badge perfect">Perfect</span>
+              </div>
+              <div class="fit-metric-track">
+                <div class="fit-metric-fill perfect" id="fit-chest-bar" style="width:95%;"></div>
+              </div>
+            </div>
+            <div class="fit-metric-row">
+              <div class="fit-metric-labels">
+                <span id="metric-label-2">Waist Contour</span>
+                <span id="fit-waist-status" class="fit-verdict-badge perfect">Perfect</span>
+              </div>
+              <div class="fit-metric-track">
+                <div class="fit-metric-fill perfect" id="fit-waist-bar" style="width:98%;"></div>
+              </div>
+            </div>
+            <div class="fit-metric-row" style="margin-bottom:0;">
+              <div class="fit-metric-labels">
+                <span id="metric-label-3">Hips / Length</span>
+                <span id="fit-hips-status" class="fit-verdict-badge tight">Snug Fit</span>
+              </div>
+              <div class="fit-metric-track">
+                <div class="fit-metric-fill warning" id="fit-hips-bar" style="width:82%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card-pink">
+          <div><i class="fa-solid fa-wand-magic-sparkles"></i> AI-rendered on your body proportions</div>
+          <div><i class="fa-solid fa-circle-info"></i> Best prediction minimises returns | Save ₹1,000</div>
+        </div>
+
+        <div class="upload-buttons">
+          <button class="btn-pink" onclick="addProductToBagFromTryOn()">
+            <i class="fa-solid fa-bag-shopping"></i> Add to Bag
+          </button>
+          <button class="btn-white" onclick="navigateTo('search')">
+            <i class="fa-solid fa-repeat"></i> Try Another
+          </button>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════
+         SCREEN 6 — AI OUTFIT BUILDER
+      ══════════════════════════════════════ -->
+      <section id="screen-builder" class="screen">
+        <div class="builder-header">
+          <h3 class="card-title">🎨 AI Outfit Builder</h3>
+          <p id="builder-subtitle" class="section-subtext">
+            AI will create outfits tailored to your Pear body shape
+          </p>
+        </div>
+        <div class="prompt-area">
+          <textarea class="prompt-textbox" id="builder-prompt-input"
+            placeholder="e.g. 'Casual weekend look', 'Office meeting under ₹5000', 'Party night outfit'"></textarea>
+        </div>
+        <div class="prompt-suggestions" id="builder-suggestions">
+          <button class="suggestion-chip" onclick="applySuggestion('Casual weekend look under ₹3000')">Casual Brunch
+            ☕</button>
+          <button class="suggestion-chip" onclick="applySuggestion('Office meeting under ₹5000')">Office Formal
+            💼</button>
+          <button class="suggestion-chip" onclick="applySuggestion('Festive family gathering')">Festive Look ✨</button>
+        </div>
+        <button class="btn-pink" id="generate-outfit-btn" onclick="generateOutfitFromPrompt()">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Outfit
+        </button>
+        <div class="suggested-section" id="builder-output" style="display:none;">
+          <div class="suggested-title">
+            <i class="fa-solid fa-sparkles" style="color:var(--primary-pink);"></i>
+            <span>✨ AI Suggested Outfit</span>
+          </div>
+          <div class="outfit-horizontal-scroll" id="builder-items-scroll"></div>
+          <div class="outfit-total-row">
+            <div>
+              <div class="outfit-total-label">Total Outfit Cost</div>
+              <div class="outfit-total-price under-budget" id="builder-total-price">₹2,797</div>
+            </div>
+            <div id="budget-status" class="budget-status-text">
+              <i class="fa-solid fa-circle-check"></i> Under Budget!
+            </div>
+          </div>
+          <div class="why-combo-works">
+            <h4>Why this combo works for you:</h4>
+            <ul class="why-combo-list" id="why-combo-bullets"></ul>
+          </div>
+          <div class="builder-action-buttons">
+            <button class="btn-pink" onclick="tryFullOutfit()">
+              <i class="fa-solid fa-street-view"></i> Try Full Outfit
+            </button>
+            <div class="builder-secondary-buttons">
+              <button class="btn-white" onclick="saveOutfitCombo()"><i class="fa-solid fa-heart"></i> Save</button>
+              <button class="btn-white" onclick="generateOutfitFromPrompt()"><i class="fa-solid fa-rotate"></i>
+                Again</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════
+         SCREEN 7 — SIZE TRANSLATOR + PROFILE
+      ══════════════════════════════════════ -->
+      <section id="screen-translator" class="screen">
+        <h3 class="section-heading">📏 AI Size Translator</h3>
+        <p class="section-subtext">Translate your measurements into perfect brand sizes.</p>
+
+        <div class="card-custom">
+          <div class="card-title"><i class="fa-solid fa-ruler-combined"
+              style="color:var(--primary-pink);margin-right:6px;"></i>Your Measurements</div>
+          <div class="measure-grid">
+            <div class="measure-input-container">
+              <label>Height</label>
+              <div class="measure-input-wrapper">
+                <input type="number" class="measure-input" id="measure-height" value="163"
+                  oninput="syncSlider('height',this.value)" />
+                <span class="measure-unit">cm</span>
+              </div>
+              <input type="range" class="measure-slider" id="slider-height" min="120" max="220" value="163"
+                oninput="syncInput('height',this.value)" />
+            </div>
+            <div class="measure-input-container">
+              <label>Chest</label>
+              <div class="measure-input-wrapper">
+                <input type="number" class="measure-input" id="measure-chest" value="88"
+                  oninput="syncSlider('chest',this.value)" />
+                <span class="measure-unit">cm</span>
+              </div>
+              <input type="range" class="measure-slider" id="slider-chest" min="60" max="150" value="88"
+                oninput="syncInput('chest',this.value)" />
+            </div>
+            <div class="measure-input-container">
+              <label>Waist</label>
+              <div class="measure-input-wrapper">
+                <input type="number" class="measure-input" id="measure-waist" value="74"
+                  oninput="syncSlider('waist',this.value)" />
+                <span class="measure-unit">cm</span>
+              </div>
+              <input type="range" class="measure-slider" id="slider-waist" min="50" max="130" value="74"
+                oninput="syncInput('waist',this.value)" />
+            </div>
+            <div class="measure-input-container">
+              <label>Hips</label>
+              <div class="measure-input-wrapper">
+                <input type="number" class="measure-input" id="measure-hips" value="102"
+                  oninput="syncSlider('hips',this.value)" />
+                <span class="measure-unit">cm</span>
+              </div>
+              <input type="range" class="measure-slider" id="slider-hips" min="70" max="160" value="102"
+                oninput="syncInput('hips',this.value)" />
+            </div>
+            <div class="measure-input-container" style="grid-column:span 2;">
+              <label>Inseam</label>
+              <div class="measure-input-wrapper">
+                <input type="number" class="measure-input" id="measure-inseam" value="76"
+                  oninput="syncSlider('inseam',this.value)" />
+                <span class="measure-unit">cm</span>
+              </div>
+              <input type="range" class="measure-slider" id="slider-inseam" min="50" max="110" value="76"
+                oninput="syncInput('inseam',this.value)" />
+            </div>
+          </div>
+          <div class="translator-buttons">
+            <button class="btn-white" onclick="showMeasureGuide()"><i class="fa-solid fa-circle-question"></i>
+              Guide</button>
+            <button class="btn-pink" onclick="analyzeMeasurements()"><i class="fa-solid fa-calculator"></i> Analyze
+              Fit</button>
+          </div>
+        </div>
+
+        <div class="card-custom">
+          <div class="card-title"><i class="fa-solid fa-sliders"
+              style="color:var(--primary-pink);margin-right:6px;"></i>Fit Preference</div>
+          <div class="fit-pref-chips">
+            <button class="filter-chip" id="pref-tight" onclick="setFitPreference(1)">Tight Fit</button>
+            <button class="filter-chip active" id="pref-perfect" onclick="setFitPreference(3)">Perfect Fit</button>
+            <button class="filter-chip" id="pref-loose" onclick="setFitPreference(5)">Loose Fit</button>
+          </div>
+          <p class="fit-pref-hint">AI adjusts sizing ease based on your preference.</p>
+        </div>
+
+        <div class="card-custom" id="translator-results-card" style="display:none;">
+          <div class="card-title"><i class="fa-solid fa-list-check"
+              style="color:var(--primary-pink);margin-right:6px;"></i>Brand Size Mapping</div>
+          <p class="results-subtitle">Verified by 500,000+ users</p>
+          <table class="mapping-table">
+            <thead>
+              <tr>
+                <th>Brand</th>
+                <th>Size</th>
+                <th>Fit Prediction</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="mapping-table-body"></tbody>
+          </table>
+          <div class="warning-card warning-green">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>🟢 Low Return Risk: Fits align with standard size distributions.</span>
+          </div>
+          <div class="warning-card warning-orange">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>⚠️ BIBA and Aurelia run small. Go UP one size if chest is close to margin.</span>
+          </div>
+        </div>
+
+        <div class="card-custom profile-card">
+          <div class="card-title"><i class="fa-solid fa-id-card"
+              style="color:var(--primary-pink);margin-right:6px;"></i>My Profile</div>
+          <p id="profile-credential-display" class="profile-credential-text">Signed in via —</p>
+          <div class="measure-grid">
+            <div class="measure-input-container">
+              <label>Full Name</label>
+              <input type="text" class="measure-input" id="profile-name" placeholder="Your name" />
+            </div>
+            <div class="measure-input-container">
+              <label>Preferred Size</label>
+              <select class="measure-input" id="profile-size">
+                <option value="XS">XS</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+              </select>
+            </div>
+            <div class="measure-input-container">
+              <label><i class="fa-solid fa-location-dot"></i> City</label>
+              <input type="text" class="measure-input" id="profile-location" placeholder="e.g. Mumbai" />
+            </div>
+            <div class="measure-input-container">
+              <label><i class="fa-solid fa-truck"></i> Delivery Address</label>
+              <input type="text" class="measure-input" id="profile-delivery" placeholder="Full delivery address" />
+            </div>
+          </div>
+          <button class="btn-pink" style="margin-top:14px;" onclick="saveUserProfile()">
+            <i class="fa-solid fa-floppy-disk"></i> Save Profile
+          </button>
+        </div>
+
+        <div class="card-custom logout-card">
+          <div class="card-title logout-title"><i class="fa-solid fa-right-from-bracket"></i> Account Actions</div>
+          <p id="profile-email-display" class="logout-credential">Logged in as: —</p>
+          <button class="btn-white logout-btn" onclick="logoutUser()">
+            <i class="fa-solid fa-power-off"></i> Log Out Session
+          </button>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════
+         SCREEN 8 — CHECKOUT
+      ══════════════════════════════════════ -->
+      <section id="screen-checkout" class="screen">
+        <h3 class="section-heading">🛒 Checkout &amp; Fit Review</h3>
+        <div class="card-custom">
+          <div class="checkout-header-summary">
+            <div class="checkout-preview" id="checkout-tryon-preview"
+              style="background-image:url('assets/model_wearing_kurta.png');"></div>
+            <div class="checkout-metrics">
+              <span class="checkout-product-title" id="checkout-product-title">Elegant Green A-Line Kurta</span>
+              <span class="checkout-brand" id="checkout-brand-title">W Brand</span>
+              <span class="confidence-val"><i class="fa-solid fa-bullseye"></i> Fit Confidence: 94%</span>
+              <span class="return-risk-text"><i class="fa-solid fa-circle-check"></i> Very Low Return Risk</span>
+            </div>
+          </div>
+          <div class="checkout-price-section">
+            <div class="checkout-price-row">
+              <span>Recommended Size</span>
+              <strong id="checkout-size-label">Size M</strong>
+            </div>
+            <div class="checkout-price-row">
+              <span>MRP</span>
+              <span class="price-strikethrough" id="checkout-mrp">₹2,499</span>
+            </div>
+            <div class="checkout-price-row">
+              <span>Promo Price</span>
+              <strong class="promo-price" id="checkout-price-label">₹1,499 (40% OFF)</strong>
+            </div>
+            <div class="warning-card warning-green" style="margin-top:8px;">
+              <i class="fa-solid fa-tag"></i>
+              <span>Save ₹1,000 instantly with AI Checkout discount!</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          "AI Mirror helped me order the perfect size — zero returns!" — Ritika P., Bangalore
+        </div>
+        <button class="btn-pink checkout-pay-btn" id="checkout-pay-btn" onclick="checkoutPurchase()">
+          <i class="fa-solid fa-credit-card"></i> Add to Bag &amp; Pay ₹1,499
+        </button>
+        <button class="btn-white" onclick="navigateTo('rendering')">
+          <i class="fa-solid fa-arrows-left-right"></i> Try Different Size
+        </button>
+      </section>
+
+
+      <!-- ══════════════════════════════════════
+         SCREEN 9 — SAVED WISHLIST
+      ══════════════════════════════════════ -->
+      <section id="screen-saved" class="screen">
+        <h3 class="section-heading">❤️ Wishlist &amp; Saved Combos</h3>
+        <div id="saved-combos-container"></div>
+      </section>
+
+
+    </main><!-- end app-content -->
+
+    <!-- Global AI Loader -->
+    <div class="ai-loader-overlay" id="global-ai-loader">
+      <div class="loading-pink-glow"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+      <div class="ai-loader-title" id="loader-title">AI Stylist Analysis...</div>
+      <div class="ai-loader-subtitle" id="loader-subtitle">Rendering outfit textures.</div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast-notify">
+      <i class="fa-solid fa-circle-check" style="color:var(--success-green);"></i>
+      <span id="toast-text">Done!</span>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" id="nav-home" onclick="navigateTo('home')"><i
+          class="fa-solid fa-house"></i><span>Home</span></button>
+      <button class="nav-item" id="nav-search" onclick="navigateTo('search')"><i
+          class="fa-solid fa-magnifying-glass"></i><span>Explore</span></button>
+      <button class="nav-item" id="nav-saved" onclick="navigateTo('saved')"><i
+          class="fa-solid fa-heart"></i><span>Wishlist</span></button>
+      <button class="nav-item" id="nav-checkout" onclick="navigateTo('checkout')"><i
+          class="fa-solid fa-bag-shopping"></i><span>Bag</span></button>
+      <button class="nav-item" id="nav-account" onclick="navigateTo('translator')"><i
+          class="fa-solid fa-user-gear"></i><span>Profile</span></button>
+    </nav>
+
+  </div><!-- end app-shell -->
+
+  <!-- Custom OTP Toast matching picture -->
+  <div id="login-otp-toast" class="login-otp-toast">
+    <div class="login-otp-toast-header">
+      <span class="toast-envelope-icon">✉️</span>
+      <span>Email sent to</span>
+    </div>
+    <div class="login-otp-toast-email">
+      <span class="toast-check-icon">🟢</span>
+      <span id="toast-email-dest">chronix6996@gmail.com!</span>
+    </div>
+    <div class="login-otp-toast-code" id="toast-otp-display">
+      OTP: 568801
+    </div>
+  </div>
+
+  <script src="fit-ml-engine.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+
+</html>

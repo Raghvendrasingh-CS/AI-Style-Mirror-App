@@ -25,7 +25,7 @@ Myntra AI Style Mirror is a full-stack web application that reimagines the onlin
 
 | Layer | Technology |
 |---|---|
-| **Frontend** | HTML5, CSS3, JavaScript, React (JSX), Vite v4 |
+| **Frontend** | HTML5, CSS3, JavaScript |
 | **Backend** | Node.js, Express.js (`app.js` / `server.js`) |
 | **ML / AI Engine** | Custom fit prediction logic (`fit-ml-engine.js`) |
 | **Authentication** | JSON Web Tokens (JWT), bcryptjs |

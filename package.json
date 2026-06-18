@@ -5,8 +5,8 @@
   "description": "Myntra AI Style Mirror — Virtual Try-On & Fit Prediction Platform",
   "scripts": {
     "dev": "node server.js",
-    "build": "cd ../client && vite build",
-    "preview": "cd ../client && vite preview",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "node test-api.js",
     "test:integration": "node test-api.js --integration"
   },
@@ -17,7 +17,7 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.7",
-    "uuid": "^9.0.0"
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "vite": "^4.5.0"
